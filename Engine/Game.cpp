@@ -56,8 +56,7 @@ void Game::ComposeFrame()
 
 	AnimatedSprite anim(&img, V2i(108, 140), std::vector<V2i>{
 			V2i(0,0), V2i(1, 0), V2i(2, 0), V2i(3, 0), V2i(4, 0), V2i(5, 0), V2i(6, 0), V2i(7, 0)
-		},
-		1.0f);
+		});
 	//108-140
 	//wnd.mouse.GetPosX(), wnd.mouse.GetPosY()
 	anim.Draw(wnd.mouse.GetPosX(), wnd.mouse.GetPosY(), (int)(seconds * 10) % 8, sz, gfx);

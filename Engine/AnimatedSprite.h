@@ -9,14 +9,13 @@ struct AnimatedSprite {
 	Surface* img;
 	V2i frameSize;
 	std::vector<V2i> frames;
-	float animDuration;
 
+	AnimatedSprite() = default;
 
-	AnimatedSprite(Surface* img, V2i& frameSize, std::vector<V2i>& frames, float animDuration) {
+	AnimatedSprite(Surface* img, V2i& frameSize, std::vector<V2i>& frames) {
 		this->img = img;
 		this->frameSize = frameSize;
 		this->frames = frames;
-		this->animDuration = animDuration;
 	}
 
 	void Draw(int x, int y, int frame, Rect clip, Graphics& gfx) {
