@@ -1,2 +1,6 @@
 .vs/
 Chili Framework 2016.VC.db
+Engine/x64/Debug/
+Engine/x64/Release/
+x64/
+Chili Framework 2016.VC.VC.opendb

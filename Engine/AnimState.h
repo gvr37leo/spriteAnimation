@@ -7,6 +7,11 @@
 struct Transition {
 	AnimState next;
 	Event triggered;
+
+	Transition(AnimState& next, Event& triggered) {
+		this->next = next;
+		this->triggered = triggered;
+	}
 };
 
 struct AnimState {
@@ -35,7 +40,19 @@ struct Animator {
 	AnimState currentState;
 
 	Animator() {
+		
+	}
 
+	void set(AnimState animState) {
+		for each (Transition transition in animState.transitions) {
+			transition.triggered.listen([=](int val) -> void {
+
+
+
+				/*transition.triggered.callbacks.empty();
+				currentState = transition.next;*/
+			});
+		}
 	}
 
 	void progress(float dt) {

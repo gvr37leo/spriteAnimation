@@ -23,6 +23,7 @@
 #include "Surface.h"
 #include "Rect.h"
 #include "AnimatedSprite.h"
+#include "AnimState.h"
 #include <chrono>
 
 Game::Game( MainWindow& wnd )
@@ -49,16 +50,32 @@ Surface img("scot.bmp");
 std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
 void Game::ComposeFrame()
 {
-	std::chrono::time_point<std::chrono::system_clock> now = std::chrono::system_clock::now();
-	std::chrono::duration<double> elapsed_seconds = now - start;
-	double seconds = elapsed_seconds.count();
-	Rect sz(V2i(0, 0), V2i(gfx.ScreenWidth, gfx.ScreenHeight));
+	//std::chrono::time_point<std::chrono::system_clock> now = std::chrono::system_clock::now();
+	//std::chrono::duration<double> elapsed_seconds = now - start;
+	//double seconds = elapsed_seconds.count();
+	//Rect sz(V2i(0, 0), V2i(gfx.ScreenWidth, gfx.ScreenHeight));
 
-	AnimatedSprite anim(&img, V2i(108, 140), std::vector<V2i>{
-			V2i(0,0), V2i(1, 0), V2i(2, 0), V2i(3, 0), V2i(4, 0), V2i(5, 0), V2i(6, 0), V2i(7, 0)
-		});
+	//AnimatedSprite anim(&img, V2i(108, 140), std::vector<V2i>{
+	//		V2i(0,0), V2i(1, 0), V2i(2, 0), V2i(3, 0), V2i(4, 0), V2i(5, 0), V2i(6, 0), V2i(7, 0)
+	//	});
 	//108-140
 	//wnd.mouse.GetPosX(), wnd.mouse.GetPosY()
-	anim.Draw(wnd.mouse.GetPosX(), wnd.mouse.GetPosY(), (int)(seconds * 10) % 8, sz, gfx);
+	//anim.Draw(wnd.mouse.GetPosX(), wnd.mouse.GetPosY(), (int)(seconds * 10) % 8, sz, gfx);
 	//gfx.DrawSprite(wnd.mouse.GetPosX(), wnd.mouse.GetPosY(),Rect(V2i(64,96),V2i(32,48)), sz, img);
+
+	Animator animator;
+	AnimState running;
+	AnimState jumping;
+
+	Event jumpEvent;
+	Transition run2jump(jumping, jumpEvent);
+
+	Event fall;
+	Transition jump2run(running, fall);
+
+	running.transitions.push_back(run2jump);
+	jumping.transitions.push_back(jump2run);
+	animator.currentState = running;
+	
+
 }
